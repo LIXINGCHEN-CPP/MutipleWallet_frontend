@@ -6,10 +6,11 @@ import {
   optimism,
   polygon,
   sepolia,
-} from 'wagmi/chains';
+} from 'viem/chains';
+import { http } from 'viem';
 
 export const config = getDefaultConfig({
-  appName: 'RainbowKit App',
+  appName: 'RainbowKit demo',
   projectId: 'YOUR_PROJECT_ID',
   chains: [
     mainnet,
@@ -20,4 +21,12 @@ export const config = getDefaultConfig({
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],
   ssr: true,
+  transports: {
+    [mainnet.id]: http(),
+    [polygon.id]: http(),
+    [optimism.id]: http(),
+    [arbitrum.id]: http(),
+    [base.id]: http(),
+    [sepolia.id]: http(),
+  },
 });
